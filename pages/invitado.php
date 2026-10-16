@@ -19,7 +19,7 @@
 <h2>Lista de Incidencias</h2>
 
 <p>Bienvenido como invitado. Puede ver las incidencias registradas.</p>
-
+<form action="POST"></form>
 <a href="invitado.php">Buscar incidencias</a>
 
 <table class="table p-3">

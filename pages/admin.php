@@ -2,6 +2,14 @@
     
     require_once __DIR__ . '/../config/conexion.php';
 
+    if (isset($_GET['buscar'])) {
+        $buscar = $_GET['buscar'];
+        
+        $sql = "SELECT * FROM incidencias WHERE laboratorio LIKE '%$buscar%' OR prioridad LIKE '%$buscar%' OR estado LIKE '%$buscar%'";
+    } else {
+        $sql = "SELECT * FROM incidencias";
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -76,18 +84,13 @@
     
     <div class="col-8 p-4">
         <h2 class="">Incidencias Registradas</h2>
-        <form action="POST">
-        <div class="mb-3">
+        <form action="" method="get">
+        <div class="col-5 mb-3 p-3">
             <label for="fieldSelect" class="form-label">Buscar por</label>
-            <select class="form-control" name="estado" id="fieldSelect">
-                <option selected>Elige una opción...</option>
-                <option value="1">Laboratorio</option>
-                <option value="2">Prioridad</option>
-                <option value="3">Estado</option>
-            </select>
+            <input class="form-control" type="text" name="buscar" placeholder="Laboratorio, Estado, Prioridad">
         </div>
         </form>
-
+        
         <div class="table-responsive table-card">
     <table class="table table-responsibe">
         <thead>
@@ -105,7 +108,7 @@
         </thead>
         <tbody>
             <?php
-            $sql= $conn->query('SELECT * FROM incidencias');
+            $sql= $conn->query($sql);
             while ($row = $sql->fetch_object()){
             ?>
             <tr>
